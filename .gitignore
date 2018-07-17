@@ -1,0 +1,22 @@
+dist/
+node_modules/
+.vscode/
+.idea/
+.DS_Store
+*.log
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.xls
+*.xlsx
+output*.json
+map*.json
+dict*.json
+
+# Examples
+!example-files/dict.json
+!example-files/map.json
+!example-files/excel.xlsx

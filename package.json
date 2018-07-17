@@ -1,0 +1,17 @@
+{
+  "name": "excel-to-json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5",
+    "node-xlsx": "^0.12.1",
+    "prompt-confirm": "^2.0.4"
+  }
+}
