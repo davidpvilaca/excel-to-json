@@ -50,6 +50,11 @@ const usage = commandLineUsage([
         description: 'Line number (excel) of keys.'
       },
       {
+        name: 'sheetIndex',
+        typeLabel: '{underline -i}',
+        description: 'Index of sheet. (Default: 0)'
+      },
+      {
         name: 'help',
         typeLabel: '{underline -h}',
         description: 'Show this usage guide.'
@@ -68,7 +73,8 @@ try {
     { name: 'file', alias: 'f', type: String, defaultOption: true },
     { name: 'dictFile', alias: 'd', type: String },
     { name: 'mapFile', alias: 'm', type: String },
-    { name: 'keysLine', alias: 'l', type: Number, defaultValue: 0 }
+    { name: 'keysLine', alias: 'l', type: Number, defaultValue: 0 },
+    { name: 'sheetIndex', alias: 'i', type: Number, defaultValue: 0 }
   ])
 } catch(e) {
   console.log(usage);
@@ -185,7 +191,7 @@ function createMap(excelKeys) {
 
 function main(options) {
 
-  const { file: xlsFileName, dictFile: dictFileName, mapFile: mapFileName, keysLine } = options
+  const { file: xlsFileName, dictFile: dictFileName, mapFile: mapFileName, keysLine, sheetIndex } = options
 
   if (!options.file) {
     console.log(usage)
@@ -198,7 +204,13 @@ function main(options) {
     return 1
   }
 
-  const file = xlsx.parse(fullPath)[0];
+  const file = xlsx.parse(fullPath)[sheetIndex];
+
+  if (!file) {
+    console.error(`Sheet index ${sheetIndex} not found.`);
+    return 1;
+  }
+
   const dictKeys = dictFileName ? openJson(dictFileName) : undefined;
   const mapKeys = mapFileName ? openJson(mapFileName) : undefined;
   const excelKeys = file.data[keysLine];
