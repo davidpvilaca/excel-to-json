@@ -2,10 +2,25 @@
 
 Transform excel file to JSON translating and/or mapping keys.
 
+## Requirements
+
+- NodeJS version 8 or later
+- NPM version 5 or later
+
+## Install
+
+On project root folder, execute in command line (bash or cmd, etc):
+
+```bash
+$ sudo npm i -g ./
+```
+
+Note: On windows **sudo** not needed.
+
 ## Usage
 
 ```bash
-$ node src/index.js file.xls -d dict.json -m map_keys.json
+$ excel2json file.xls -d dict.json -m map_keys.json
 ```
 
 - `file.xls` - Excel file
@@ -42,7 +57,7 @@ Map (map.json):
 }
 ```
 
-Runing: `$ node src/index.js excel.xlsx -d dict.json`
+Runing: `$ excel2json excel.xlsx -d dict.json`
 Result:
 ```json
  [
@@ -56,7 +71,7 @@ Result:
 ]
 ```
 
-Runing: `$ node src/index.js excel.xlsx -m map.json`
+Runing: `$ excel2json excel.xlsx -m map.json`
 Result:
 ```json
 [
@@ -74,7 +89,7 @@ Result:
 ]
 ```
 
-Runing `$ node src/index.js excel.xlsx -k`
+Runing `$ excel2json excel.xlsx -k`
 Result (dict.json):
 ```json
 {
@@ -95,3 +110,13 @@ Result (dict.json):
 -  **--mapFile** or **-m**<br>Json file with key map.
 -  **--keysLine** or **-l**<br>Line number (excel) of keys.
 -  **--help** or **-h**<br>Show this usage guide.
+
+## Uninstall
+
+On project root folder, execute in command line (bash or cmd, etc):
+
+```bash
+$ sudo npm uninstall -g excel-to-json
+```
+
+Note: On windows **sudo** not needed.
