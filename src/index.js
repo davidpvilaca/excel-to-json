@@ -96,7 +96,7 @@ function writeJsonFile(filename, data, encoding = 'utf-8', override = false, i =
     filename = _filename.join('.')
   }
   if (!override && existsSync(filename)) {
-    const prompt = new Confirm(`O arquivo ${filename} já existe. Deseja sobrescreve-lo?`);
+    const prompt = new Confirm(`The ${filename} file already exists. Do you want to overwrite it?`);
     prompt.run()
       .then(answer => answer ? writeJsonFile(filename, data, encoding, answer) : writeJsonFile(filename, data, encoding, answer, ++i));
     return;
