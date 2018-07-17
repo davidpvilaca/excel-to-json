@@ -6,8 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "David Vilaça <vilacapdavid@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "excel2json": "./src/index.js"
+  },
+  "preferGlobal": true,
   "dependencies": {
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
