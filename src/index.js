@@ -10,15 +10,7 @@ const commandLineUsage = require('command-line-usage')
 /**
  * CLI OPTIONS AND USAGE
  */
-const options = commandLineArgs([
-  { name: 'createMap', alias: 'r', type: Boolean },
-  { name: 'createDict', alias: 'k', type: Boolean },
-  { name: 'help', alias: 'h', type: Boolean },
-  { name: 'file', alias: 'f', type: String, defaultOption: true },
-  { name: 'dictFile', alias: 'd', type: String },
-  { name: 'mapFile', alias: 'm', type: String },
-  { name: 'keysLine', alias: 'l', type: Number, defaultValue: 0 }
-])
+let options;
 const usage = commandLineUsage([
   {
     header: 'EXCEL TO JSON APP',
@@ -68,6 +60,20 @@ const usage = commandLineUsage([
     content: '--file (-f) is default option'
   }
 ])
+try {
+  options = commandLineArgs([
+    { name: 'createMap', alias: 'r', type: Boolean },
+    { name: 'createDict', alias: 'k', type: Boolean },
+    { name: 'help', alias: 'h', type: Boolean },
+    { name: 'file', alias: 'f', type: String, defaultOption: true },
+    { name: 'dictFile', alias: 'd', type: String },
+    { name: 'mapFile', alias: 'm', type: String },
+    { name: 'keysLine', alias: 'l', type: Number, defaultValue: 0 }
+  ])
+} catch(e) {
+  console.log(usage);
+  process.exit(1);
+}
 
 
 /**
@@ -90,7 +96,7 @@ function writeJsonFile(filename, data, encoding = 'utf-8', override = false, i =
     return;
   }
   writeFileSync(path.join(process.cwd(), filename), JSON.stringify(data, null, 2), { encoding });
-  console.log(`Arquivo ${filename} salvo com sucesso em ${process.cwd()}.`);
+  console.log(`"${filename}" file saved successfully in "${process.cwd()}".`);
 }
 
 /**
@@ -105,7 +111,8 @@ function openJson(filename, encoding) {
     const file = readFileSync(path.join(process.cwd(), filename), { encoding } );
     return JSON.parse(file);
   } catch (e) {
-    throw new Error(`Não foi possível abrir o arquivo ${filename}`);
+    console.error(`File "${path.join(process.cwd(), filename)}" not found!`);
+    process.exit(1);
   }
 }
 
@@ -185,7 +192,13 @@ function main(options) {
     return 1;
   }
 
-  const file = xlsx.parse(path.join(process.cwd(), xlsFileName))[0];
+  const fullPath = path.join(process.cwd(), xlsFileName)
+  if (!existsSync(fullPath)) {
+    console.error(`File "${fullPath}" not found!`);
+    return 1
+  }
+
+  const file = xlsx.parse(fullPath)[0];
   const dictKeys = dictFileName ? openJson(dictFileName) : undefined;
   const mapKeys = mapFileName ? openJson(mapFileName) : undefined;
   const excelKeys = file.data[keysLine];
