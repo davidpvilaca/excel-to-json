@@ -17,5 +17,9 @@
     "command-line-usage": "^5.0.5",
     "node-xlsx": "^0.12.1",
     "prompt-confirm": "^2.0.4"
+  },
+  "engines": {
+    "node": "^8.0.0",
+    "npm": "^5.0.0"
   }
 }
